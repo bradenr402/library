@@ -1,17 +1,74 @@
 <!DOCTYPE html>
 
 <html lang="en-us">
-
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
-    <title>Title</title>
+    <title>Library</title>
   </head>
 
   <body>
+    <h1>Your Library</h1>
 
+    <table id="library-table">
+      <tbody>
+        <tr class="library-info-header">
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th>Delete</th>
+          <th>Read</th>
+        </tr>
+      </tbody>
+    </table>
+
+    <button id="show-dialog-btn">Add a book</button>
+
+    <dialog>
+      <form method="dialog">
+        <div class="input-group">
+          <label for="title">Title</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Pride and Prejudice"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="author">Author</label>
+          <input
+            id="author"
+            name="author"
+            type="text"
+            placeholder="Jane Austen"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="pages">Number of pages</label>
+          <input
+            id="pages"
+            name="pages"
+            type="number"
+            placeholder="480"
+          />
+        </div>
+
+        <div class="checkbox-container">
+          <input id="read" name="read" type="checkbox" class="checkbox" />
+          <label for="read">Already read?</label>
+        </div>
+
+        <div class="btn-container">
+          <button id="add-book-submit-btn" type="submit">Add Book</button>
+        </div>
+      </form>
+
+      <button id="close-dialog-btn">&times;</button>
+    </dialog>
   </body>
-
 </html>
