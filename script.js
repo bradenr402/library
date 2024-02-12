@@ -1,4 +1,5 @@
 const library = [];
+
 class Book {
   constructor(title = 'Unknown', author = 'Unknown', pages = 0, read = false) {
     this.title = title;
@@ -43,7 +44,6 @@ closeButton.addEventListener('click', () => {
 function createCell(content) {
   const cell = document.createElement('td');
   const cellContent = document.createTextNode(content);
-
   cell.appendChild(cellContent);
 
   return cell;
