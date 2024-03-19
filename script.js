@@ -105,22 +105,63 @@ function createBookInfoRow(book, bookIndex) {
   return row;
 }
 
-const dialogForm = document.querySelector('dialog form');
+function applyValidationStyling(field) {
+  const errorMessage = field.nextElementSibling;
 
-dialogForm.addEventListener('submit', (event) => {
+  if (field.value === '') {
+    errorMessage.style.display = 'block';
+    field.style.borderColor = '#e74c3c';
+  } else {
+    errorMessage.style.display = 'none';
+
+    field.style.borderColor =
+      field === document.activeElement ? '#04aa6d' : '#b9b9b9';
+  }
+}
+
+const titleField = document.getElementById('title');
+const authorField = document.getElementById('author');
+const pagesField = document.getElementById('pages');
+
+[titleField, authorField, pagesField].forEach((field) => {
+  field.addEventListener('input', () => applyValidationStyling(field));
+
+  field.addEventListener('focus', () => {
+    if (field.value !== '') applyValidationStyling(field);
+  });
+
+  field.addEventListener('blur', () => {
+    if (field.value !== '') applyValidationStyling(field);
+  });
+});
+
+function validateField(field) {
+  applyValidationStyling(field);
+  return field.value !== ''; // returns false if invalid, otherwise returns true
+}
+
+const newBookForm = document.querySelector('form');
+
+newBookForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const title = document.querySelector('#title').value;
-  const author = document.querySelector('#author').value;
-  const pages = document.querySelector('#pages').value;
-  const read = document.querySelector('#read').checked;
+  const titleValid = validateField(titleField);
+  const authorValid = validateField(authorField);
+  const pagesValid = validateField(pagesField);
 
-  const newBook = new Book(title, author, pages, read);
+  if (titleValid && authorValid && pagesValid) {
+    const title = titleField.value;
+    const author = authorField.value;
+    const pages = pagesField.value;
+    const read = document.getElementById('read').checked;
 
-  addBookToLibrary(newBook);
+    const newBook = new Book(title, author, pages, read);
 
-  dialogForm.reset(); // clears form
-  dialog.close();
+    addBookToLibrary(newBook);
+
+    newBookForm.reset(); // clears form
+    dialog.close();
+  }
 });
 
 function updateDeleteBookBtnEventListeners() {

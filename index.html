@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en-us">
   <head>
@@ -27,7 +27,7 @@
     <button id="show-dialog-btn">Add a book</button>
 
     <dialog>
-      <form method="dialog">
+      <form method="dialog" novalidate>
         <div class="input-group">
           <label for="title">Title</label>
           <input
@@ -35,7 +35,12 @@
             name="title"
             type="text"
             placeholder="Pride and Prejudice"
+            required
+            minlength="0"
           />
+          <span class="error-message" id="title-error-message"
+            >Please enter book title.</span
+          >
         </div>
 
         <div class="input-group">
@@ -45,7 +50,12 @@
             name="author"
             type="text"
             placeholder="Jane Austen"
+            required
+            minlength="0"
           />
+          <span class="error-message" id="author-error-message"
+            >Please enter author name.</span
+          >
         </div>
 
         <div class="input-group">
@@ -55,7 +65,12 @@
             name="pages"
             type="number"
             placeholder="480"
+            required
+            min="0"
           />
+          <span class="error-message" id="pages-error-message"
+            >Please enter number of pages.</span
+          >
         </div>
 
         <div class="checkbox-container">
