@@ -30,8 +30,8 @@ addBookToLibrary(theHobbit);
 addBookToLibrary(theBible);
 
 const dialog = document.querySelector('dialog');
-const showButton = document.querySelector('#show-dialog-btn');
-const closeButton = document.querySelector('#close-dialog-btn');
+const showButton = document.getElementById('show-dialog-btn');
+const closeButton = document.getElementById('close-dialog-btn');
 
 showButton.addEventListener('click', () => {
   dialog.showModal();
