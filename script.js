@@ -1,11 +1,15 @@
 const library = [];
 
 class Book {
-  constructor(title, author, pages, read) {
+  constructor(title, author, pages, read = false) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read ? 'read' : 'unread';
+  }
+
+  toggleRead() {
+    this.read = this.read === 'unread' ? 'read' : 'unread';
   }
 }
 
@@ -32,6 +36,7 @@ addBookToLibrary(theBible);
 const dialog = document.querySelector('dialog');
 const showButton = document.getElementById('show-dialog-btn');
 const closeButton = document.getElementById('close-dialog-btn');
+const newBookForm = document.querySelector('form');
 
 showButton.addEventListener('click', () => {
   dialog.showModal();
@@ -39,6 +44,7 @@ showButton.addEventListener('click', () => {
 
 closeButton.addEventListener('click', () => {
   dialog.close();
+  newBookForm.reset();
 });
 
 function createCell(content) {
@@ -49,38 +55,30 @@ function createCell(content) {
   return cell;
 }
 
+function setIcon(content) {
+  const icon = document.createElement('span');
+  icon.classList.add('material-symbols-outlined');
+
+  switch (content) {
+    case 'delete':
+      icon.textContent = 'delete';
+      break;
+    case 'read':
+      icon.textContent = 'check_circle';
+      break;
+    case 'unread':
+      icon.textContent = 'circle';
+      break;
+  }
+
+  return icon;
+}
+
 function createButtonCell(content, btnClass, bookIndex) {
   const cell = document.createElement('td');
   const btn = document.createElement('button');
-  let btnContent = document.createTextNode(content);
 
-  if (content === 'delete') {
-    let xmlns = 'http://www.w3.org/2000/svg';
-    let boxWidth = 24;
-    let boxHeight = 24;
-
-    let svgElem = document.createElementNS(xmlns, 'svg');
-    svgElem.setAttributeNS(
-      null,
-      'viewBox',
-      '0 0 ' + boxWidth + ' ' + boxHeight
-    );
-    svgElem.setAttributeNS(null, 'width', boxWidth);
-    svgElem.setAttributeNS(null, 'height', boxHeight);
-    svgElem.style.display = 'block';
-
-    let path = document.createElementNS(xmlns, 'path');
-
-    path.setAttributeNS(
-      null,
-      'd',
-      'M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z'
-    );
-    path.setAttributeNS(null, 'fill', '#fff');
-    svgElem.appendChild(path);
-
-    btnContent = svgElem;
-  }
+  let btnContent = setIcon(content);
 
   btn.classList.add(btnClass);
   btn.dataset.bookIndex = bookIndex;
@@ -114,8 +112,8 @@ function applyValidationStyling(field) {
   } else {
     errorMessage.style.display = 'none';
 
-    field.style.borderColor =
-      field === document.activeElement ? 'var(--border-green)' : 'var(--border-gray)';
+    const isActive = field === document.activeElement;
+    field.style.borderColor = `var(--border-${isActive ? 'green' : 'gray'})`;
   }
 }
 
@@ -127,11 +125,11 @@ const pagesField = document.getElementById('pages');
   field.addEventListener('input', () => applyValidationStyling(field));
 
   field.addEventListener('focus', () => {
-    if (field.value !== '') applyValidationStyling(field);
+    if (field.value !== '') applyValidationStyling(field); // wait to apply styling until user has interacted with the field
   });
 
   field.addEventListener('blur', () => {
-    if (field.value !== '') applyValidationStyling(field);
+    if (field.value !== '') applyValidationStyling(field); // wait to apply styling until user has interacted with the field
   });
 });
 
@@ -139,8 +137,6 @@ function validateField(field) {
   applyValidationStyling(field);
   return field.value !== ''; // returns false if invalid, otherwise returns true
 }
-
-const newBookForm = document.querySelector('form');
 
 newBookForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -153,9 +149,8 @@ newBookForm.addEventListener('submit', (event) => {
     const title = titleField.value;
     const author = authorField.value;
     const pages = pagesField.value;
-    const read = document.getElementById('read').checked;
 
-    const newBook = new Book(title, author, pages, read);
+    const newBook = new Book(title, author, pages);
 
     addBookToLibrary(newBook);
 
@@ -178,15 +173,20 @@ function updateDeleteBookBtnEventListeners() {
   });
 }
 
-function markBookAsRead() {
-  this.textContent = this.textContent === 'read' ? 'unread' : 'read';
+function toggleBookReadIcon() {
+  const currentBook = library[this.dataset.bookIndex];
+
+  if (currentBook.read === 'read') this.replaceChildren(setIcon('unread'));
+  else this.replaceChildren(setIcon('read'));
+
+  currentBook.toggleRead();
 }
 
 function updateReadBookBtnEventListeners() {
   let readBookBtns = document.querySelectorAll('.read-book');
 
   readBookBtns.forEach((btn) => {
-    btn.removeEventListener('click', markBookAsRead);
-    btn.addEventListener('click', markBookAsRead);
+    btn.removeEventListener('click', toggleBookReadIcon);
+    btn.addEventListener('click', toggleBookReadIcon);
   });
 }

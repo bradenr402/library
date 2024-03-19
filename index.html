@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <script src="script.js" defer></script>
     <title>Library</title>
   </head>
@@ -24,7 +28,12 @@
       </tbody>
     </table>
 
-    <button id="show-dialog-btn">Add a book</button>
+    <button id="show-dialog-btn" class="icon-btn">
+      <span class="material-symbols-outlined add-book-icon">
+        bookmark_add
+      </span>
+      Add a book
+    </button>
 
     <dialog>
       <form method="dialog" novalidate>
@@ -73,17 +82,19 @@
           >
         </div>
 
-        <div class="checkbox-container">
-          <input id="read" name="read" type="checkbox" class="checkbox" />
-          <label for="read">Already read?</label>
-        </div>
-
         <div class="btn-container">
-          <button id="add-book-submit-btn" type="submit">Add Book</button>
+          <button id="add-book-submit-btn" class="icon-btn" type="submit">
+            <span class="material-symbols-outlined add-book-icon"
+              >bookmark_add</span
+            >
+            Add Book
+          </button>
         </div>
       </form>
 
-      <button id="close-dialog-btn">&times;</button>
+      <button id="close-dialog-btn">
+        <span class="material-symbols-outlined close-icon">close</span>
+      </button>
     </dialog>
   </body>
 </html>
