@@ -10,6 +10,16 @@ html {
   padding: 0;
 }
 
+:root {
+  --primary-green: #04aa6d;
+  --primary-red: #c02d42;
+  --focus-red: #912233;
+  --focus-green: #03734a;
+  --border-green: var(--primary-green);
+  --border-red: #e74c3c;
+  --border-gray: #b9b9b9;
+}
+
 h1 {
   margin: 2rem;
 }
@@ -23,7 +33,7 @@ table {
 
 th {
   padding: 12px 0;
-  background-color: #04aa6d;
+  background-color: var(--primary-green);
   color: white;
   font-size: 1.25rem;
 }
@@ -45,7 +55,7 @@ tr:hover {
 
 button {
   padding: 0.75rem 1.5rem;
-  background-color: #04aa6d;
+  background-color: var(--primary-green);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -58,7 +68,7 @@ button {
 }
 
 #close-dialog-btn {
-  background-color: #c02d42;
+  background-color: var(--primary-red);
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -67,7 +77,7 @@ button {
 }
 
 .delete-book {
-  background-color: #c02d42;
+  background-color: var(--primary-red);
   padding: 0.5rem 1rem;
 }
 
@@ -75,7 +85,7 @@ button {
 .delete-book:hover,
 #close-dialog-btn:focus,
 #close-dialog-btn:hover {
-  background-color: #912233;
+  background-color: var(--focus-red);
 }
 
 #add-book-submit-btn {
@@ -90,7 +100,7 @@ button {
 #add-book-submit-btn:hover,
 #show-dialog-btn:focus,
 #show-dialog-btn:hover {
-  background-color: #03734a;
+  background-color: var(--focus-green);
 }
 
 dialog {
@@ -101,7 +111,7 @@ dialog {
   width: 40%;
   padding: 2.5rem 1rem 1rem;
 
-  border: 1px solid #b9b9b9;
+  border: 1px solid var(--border-gray);
   border-radius: 1.5rem;
 }
 
@@ -129,7 +139,7 @@ label {
 }
 
 .input-group input {
-  border: 2px solid #b9b9b9;
+  border: 2px solid var(--border-gray);
   padding: 0.75rem 0.75rem 0.5rem;
   border-radius: 0.5rem;
   outline: none;
@@ -137,12 +147,12 @@ label {
 }
 
 input:focus {
-  border-color: #04aa6d;
+  border-color: var(--border-green);
 }
 
 input.checkbox {
-  border: 2px solid #b9b9b9;
-  accent-color: #04aa6d;
+  border: 2px solid var(--border-gray);
+  accent-color: var(--primary-green);
   height: 1rem;
   width: 1rem;
 }

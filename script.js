@@ -110,12 +110,12 @@ function applyValidationStyling(field) {
 
   if (field.value === '') {
     errorMessage.style.display = 'block';
-    field.style.borderColor = '#e74c3c';
+    field.style.borderColor = 'var(--primary-red)';
   } else {
     errorMessage.style.display = 'none';
 
     field.style.borderColor =
-      field === document.activeElement ? '#04aa6d' : '#b9b9b9';
+      field === document.activeElement ? 'var(--border-green)' : 'var(--border-gray)';
   }
 }
 
